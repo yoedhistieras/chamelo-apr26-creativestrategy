@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chamelo - Next Step Strategy - Skyvane</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a1a;--ink50:rgba(26,26,26,.5);--ink40:rgba(26,26,26,.4);--ink25:rgba(26,26,26,.25);
+  --ink10:rgba(26,26,26,.1);--ink06:rgba(26,26,26,.06);--ink03:rgba(26,26,26,.03);
+  --bd:rgba(26,26,26,.10);--bd2:rgba(26,26,26,.18);
+  --green:#15803d;--gbg:#f0fdf4;--gbd:#86efac;--gtext:#14532d;
+  --red:#dc2626;--rbg:#fef2f2;--rbd:#fca5a5;--rtext:#7f1d1d;
+  --amber:#b45309;--abg:#fffbeb;--abd:#fcd34d;--atext:#78350f;
+  --blue:#1d4ed8;--bbg:#eff6ff;--bbd:#93c5fd;--btext:#1e3a8a;
+  --purple:#6d28d9;--pbg:#f5f3ff;--pbd:#c4b5fd;--ptext:#4c1d95;
+  --teal:#0f766e;--tbg:#f0fdfa;--tbd:#5eead4;--ttext:#134e4a;
+  --orange:#c2410c;--obg:#fff7ed;--obd:#fed7aa;--otext:#7c2d12;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#fff;color:var(--ink);font-family:"Inter",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 40px;height:48px;gap:32px}
+.nav-brand{font-size:13px;font-weight:700;color:var(--ink);letter-spacing:-.02em;flex-shrink:0}
+.nav-brand span{color:var(--ink40);font-weight:400}
+.nav-links{display:flex;gap:1px;flex:1}
+.nav-links a{font-size:11px;color:var(--ink40);text-decoration:none;padding:4px 10px;border-radius:5px;transition:all .12s;white-space:nowrap;font-weight:500}
+.nav-links a:hover{color:var(--ink);background:var(--ink06)}
+.nav-links a.act{color:var(--ink);background:var(--ink06);font-weight:600}
+.page{padding-top:48px}
+section{padding:60px 48px;max-width:1160px;margin:0 auto}
+.divider{height:1px;background:var(--bd);margin:0 48px}
+.eyebrow{font-size:10px;font-weight:700;color:var(--ink40);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.section-title{font-family:"DM Serif Display",serif;font-size:30px;line-height:1.1;color:var(--ink);margin-bottom:8px}
+p.sub{color:var(--ink40);line-height:1.7;font-size:13px}
+.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt20{margin-top:20px}.mt24{margin-top:24px}
+.hero{padding:64px 48px 52px;max-width:1160px;margin:0 auto}
+.hero-eye{font-size:10px;font-weight:700;color:var(--ink40);letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+.hero-h1{font-family:"DM Serif Display",serif;font-size:56px;line-height:1.0;color:var(--ink);margin-bottom:4px}
+.hero-h1-fade{font-family:"DM Serif Display",serif;font-size:56px;line-height:1.0;color:var(--ink25);margin-bottom:24px;font-style:italic}
+.hero-sub{font-size:15px;color:var(--ink40);max-width:560px;line-height:1.7;margin-bottom:32px}
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:12px;overflow:hidden}
+.kpi{background:#fff;padding:20px 22px}
+.kpi-lbl{font-size:10px;font-weight:700;color:var(--ink40);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.kpi-val{font-family:"DM Serif Display",serif;font-size:28px;line-height:1;margin-bottom:4px}
+.kpi-val.red{color:var(--red)}.kpi-val.amber{color:var(--amber)}.kpi-val.ink{color:var(--ink)}
+.kpi-sub{font-size:11px;color:var(--ink40);line-height:1.5}
+.strip{border-radius:10px;padding:14px 18px;font-size:13px;line-height:1.7;margin-top:14px}
+.strip strong{font-weight:700}
+.strip.danger{background:var(--rbg);border:1px solid var(--rbd);border-left:3px solid var(--red);color:var(--rtext)}
+.strip.info{background:var(--bbg);border:1px solid var(--bbd);border-left:3px solid var(--blue);color:var(--btext)}
+.strip.ok{background:var(--gbg);border:1px solid var(--gbd);border-left:3px solid var(--green);color:var(--gtext)}
+.strip.note{background:var(--abg);border:1px solid var(--abd);border-left:3px solid var(--amber);color:var(--atext)}
+.tbl-wrap{border:1px solid var(--bd);border-radius:12px;overflow:hidden;margin-top:22px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{text-align:left;padding:10px 14px;font-size:10px;font-weight:700;color:var(--ink40);text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--bd);background:var(--ink03)}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--bd);vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--ink03)}
+.ad-name{font-size:12px;color:var(--ink50);max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.num-good{font-weight:700;color:var(--green)}.num-mid{font-weight:600;color:var(--amber)}.num-bad{font-weight:600;color:var(--red)}.num-mute{color:var(--ink25);font-size:12px}.strike{color:var(--ink25);text-decoration:line-through;font-size:12px}
+.chip{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:700;white-space:nowrap;display:inline-block}
+.chip-aura{background:var(--pbg);color:var(--ptext);border:1px solid var(--pbd)}
+.chip-ms{background:var(--tbg);color:var(--ttext);border:1px solid var(--tbd)}
+.verd{font-size:10px;padding:3px 9px;border-radius:99px;font-weight:700;display:inline-block;white-space:nowrap}
+.verd.keep{background:var(--gbg);color:var(--gtext);border:1px solid var(--gbd)}
+.verd.watch{background:var(--abg);color:var(--atext);border:1px solid var(--abd)}
+.verd.pause{background:var(--rbg);color:var(--rtext);border:1px solid var(--rbd)}
+.verd.hold{background:var(--bbg);color:var(--btext);border:1px solid var(--bbd)}
+.prod-switcher{display:flex;gap:4px;margin-bottom:28px;border-bottom:1px solid var(--bd)}
+.prod-tab{font-size:12px;font-weight:600;padding:8px 16px;cursor:pointer;border-bottom:2px solid transparent;color:var(--ink40);transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;margin-bottom:-1px}
+.prod-tab:hover{color:var(--ink)}
+.prod-tab.on{color:var(--ink);border-bottom-color:var(--ink)}
+.pane{display:none}.pane.on{display:block}
+.angle-stack{display:flex;flex-direction:column;gap:14px}
+.angle-card{border:1px solid var(--bd);border-radius:14px;overflow:hidden}
+.angle-card.ws{border-top:3px solid var(--green)}
+.angle-card.reddit{border-top:3px solid var(--orange)}
+.angle-card.fix{border-top:3px solid var(--amber)}
+.angle-card.p2{border-top:3px solid var(--blue)}
+.card-hdr{padding:15px 20px;background:var(--ink03);border-bottom:1px solid var(--bd);display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.card-num{font-size:11px;font-weight:700;color:var(--ink40);flex-shrink:0;padding-top:2px}
+.card-title{font-family:"DM Serif Display",serif;font-size:17px;color:var(--ink);flex:1;line-height:1.3;min-width:200px}
+.card-tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center;flex-shrink:0}
+.tag{font-size:10px;padding:2px 9px;border-radius:99px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;display:inline-block}
+.tag-ws{background:var(--gbg);color:var(--gtext);border:1px solid var(--gbd)}
+.tag-reddit{background:var(--obg);color:var(--otext);border:1px solid var(--obd)}
+.tag-fix{background:var(--abg);color:var(--atext);border:1px solid var(--abd)}
+.tag-p1{background:var(--gbg);color:var(--gtext);border:1px solid var(--gbd)}
+.tag-p2{background:var(--bbg);color:var(--btext);border:1px solid var(--bbd)}
+.tag-urgent{background:var(--rbg);color:var(--rtext);border:1px solid var(--rbd)}
+.tag-aud{font-size:10px;color:var(--ink50);background:var(--ink06);border:1px solid var(--bd);border-radius:99px;padding:2px 8px;font-weight:500;text-transform:none;letter-spacing:0}
+.card-body{padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.col-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink40);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--bd)}
+.col-text{font-size:13px;color:var(--ink50);line-height:1.7}
+.col-text strong{color:var(--ink);font-weight:700}
+.aud-pills{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+.copies{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.copy{border:1px solid var(--bd);border-radius:7px;padding:10px 12px}
+.copy-lbl{font-size:10px;font-weight:700;color:var(--ink40);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.copy-text{font-size:12px;color:var(--ink50);line-height:1.6;font-style:italic}
+.hooks-section{padding:0 20px 20px}
+.hooks-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hooks-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:10px 0 7px;border-top:1px solid var(--bd);margin-bottom:5px}
+.hooks-lbl.static{color:var(--btext)}.hooks-lbl.video{color:var(--ptext)}
+.hook-item{padding:10px 12px;border-radius:7px;border:1px solid;margin-bottom:6px}
+.hook-item.s{background:var(--bbg);border-color:var(--bbd)}.hook-item.v{background:var(--pbg);border-color:var(--pbd)}
+.hook-n{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px}
+.hook-n.s{color:var(--blue)}.hook-n.v{color:var(--purple)}
+.hook-t{font-size:12px;font-style:italic;line-height:1.5;font-weight:500}
+.hook-t.s{color:var(--btext)}.hook-t.v{color:var(--ptext)}
+.evidence{background:var(--abg);border-top:1px solid var(--abd);padding:12px 20px;display:flex;gap:10px;align-items:flex-start}
+.ev-lbl{font-size:10px;font-weight:700;color:var(--atext);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.ev-text{font-size:12px;color:var(--atext);line-height:1.6}
+.ev-text strong{font-weight:700}
+.ra-stack{display:flex;flex-direction:column;gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:12px;overflow:hidden;margin-top:20px}
+.ra{background:#fff}
+.ra-hdr{padding:12px 20px;background:var(--rbg);border-bottom:1px solid var(--rbd);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ra-title{font-size:13px;font-weight:700;color:var(--rtext);flex:1}
+.ra-body{padding:16px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.ra-col-lbl{font-size:10px;font-weight:700;color:var(--ink40);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.ra-text{font-size:12px;color:var(--ink50);line-height:1.7}
+.ra-text strong{color:var(--ink);font-weight:700}
+.ra-diff{background:var(--gbg);border:1px solid var(--gbd);border-radius:7px;padding:10px 12px;margin-top:8px;font-size:12px;color:var(--gtext);line-height:1.6}
+.ra-diff strong{font-weight:700}
+.ai-brief{background:var(--pbg);border:1px solid var(--pbd);border-radius:8px;padding:12px 14px;margin-top:6px;font-size:12px;color:var(--ptext);line-height:1.6}
+.ai-brief strong{font-weight:700}
+.batch-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.batch{border:1px solid var(--bd);border-radius:12px;overflow:hidden}
+.batch-hdr{padding:16px 20px;border-bottom:1px solid var(--bd)}
+.batch-prod{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.batch-prod.aura{color:var(--purple)}.batch-prod.ms{color:var(--teal)}
+.batch-title{font-family:"DM Serif Display",serif;font-size:18px;color:var(--ink);line-height:1.1}
+.batch-sub{font-size:11px;color:var(--ink40);margin-top:3px}
+.arow{display:flex;align-items:center;gap:8px;padding:9px 16px;border-bottom:1px solid var(--bd)}
+.arow:last-child{border-bottom:none}
+.arow:hover{background:var(--ink03)}
+.adot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.adot.g{background:var(--green)}.adot.b{background:var(--blue)}.adot.am{background:var(--amber)}.adot.o{background:var(--orange)}
+.aname{font-size:12px;color:var(--ink);flex:1;font-weight:500}
+.asource{font-size:10px;color:var(--ink40);background:var(--ink06);border:1px solid var(--bd);border-radius:4px;padding:1px 6px;white-space:nowrap}
+.acount{font-size:11px;font-weight:700;color:var(--ink50);white-space:nowrap;min-width:32px;text-align:right}
+.tldr{background:var(--ink);border-radius:14px;padding:40px 44px}
+.tldr-pill{font-size:10px;font-weight:700;color:var(--ink);background:#fff;padding:3px 10px;border-radius:99px;display:inline-block;margin-bottom:14px;letter-spacing:.07em;text-transform:uppercase}
+.tldr-title{font-family:"DM Serif Display",serif;font-size:26px;color:#fff;margin-bottom:28px;font-style:italic}
+.tldr-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px}
+.tc-title{font-size:10px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.1)}
+.tc-list{list-style:none;display:flex;flex-direction:column}
+.tc-list li{font-size:12px;color:rgba(255,255,255,.55);padding:7px 0;border-bottom:1px solid rgba(255,255,255,.07);line-height:1.55;display:flex;gap:8px;align-items:flex-start}
+.tc-list li:last-child{border-bottom:none}
+.tc-list li .arr{color:rgba(255,255,255,.25);flex-shrink:0;font-size:11px;margin-top:2px}
+.tc-list li strong{color:rgba(255,255,255,.9);font-weight:700}
+.footer{padding:16px 48px;border-top:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center}
+.footer-txt{font-size:11px;color:var(--ink40)}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand">Skyvane <span>x Chamelo</span></div>
+  <div class="nav-links">
+    <a href="#perf">Performance</a>
+    <a href="#angles">Angles</a>
+    <a href="#redarea">Red area</a>
+    <a href="#batch">Next batch</a>
+    <a href="#tldr">TL;DR</a>
+  </div>
+</nav>
+<div class="page">
+<div class="hero">
+  <div class="hero-eye">Next Step Strategy - Chamelo - April 2026</div>
+  <div class="hero-h1">What to do next</div>
+  <div class="hero-h1-fade">for Aura and Music Shield.</div>
+  <div class="hero-sub">Built on performance data, current creative audit, and fresh Reddit research. Eight angles per product, four from strategy and four sourced from real communities. Brief ready to hand to the creative engine.</div>
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-lbl">Blended ROAS</div><div class="kpi-val red">0.82x</div><div class="kpi-sub">$6,581 spend - $5,386 revenue - 19 purchases total</div></div>
+    <div class="kpi"><div class="kpi-lbl">Aura ROAS</div><div class="kpi-val red">0.70x</div><div class="kpi-sub">$2,885 spend - 5 purchases - CPP $577 on a $385 product</div></div>
+    <div class="kpi"><div class="kpi-lbl">Music Shield ROAS</div><div class="kpi-val amber">0.91x</div><div class="kpi-sub">$3,696 spend - 14 purchases - CPP $264</div></div>
+  </div>
+  <div class="strip danger mt16"><strong>Both products are below breakeven.</strong> Aura is losing $192 per purchase. Music Shield is close but still underwater. The creative is driving clicks. The funnel breaks at checkout. New creative needs to address price and the 30-day guarantee before the click, not leave it on the LP.</div>
+</div>
+<div class="divider"></div>
+<section id="perf">
+  <div class="eyebrow">Section 01</div>
+  <div class="section-title">Creative Performance Insight</div>
+  <p class="sub mt8">Skyvane-managed spend only. 21 Mar to 6 Apr 2026. ROAS 1.0x and above is green, below 1.0x is red.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Creative</th><th>Product</th><th>Spend</th><th>ROAS</th><th>Purchases</th><th>CPP</th><th>CTR</th><th>LP to ATC</th><th>Call</th></tr></thead>
+      <tbody>
+        <tr><td><div class="ad-name">Brand Sizzle Nov 2024 OG 1 (ProductDemo)</div></td><td><span class="chip chip-ms">Music Shield</span></td><td>$2,782</td><td class="num-bad">0.87x</td><td class="num-good">11</td><td class="num-mid">$253</td><td>2.38%</td><td class="num-good">10.8%</td><td><span class="verd keep">Keep + iterate</span></td></tr>
+        <tr><td><div class="ad-name">Aura Audio PreLaunch - Founder Story</div></td><td><span class="chip chip-aura">Aura</span></td><td>$2,155</td><td class="num-bad">0.86x</td><td>4</td><td class="num-bad">$539</td><td class="num-mute">1.72%</td><td class="num-bad">3.9%</td><td><span class="verd watch">Retargeting only</span></td></tr>
+        <tr><td><div class="ad-name">MusicShield 21sec Lester Best Performer</div></td><td><span class="chip chip-ms">Music Shield</span></td><td>$689</td><td class="num-bad">0.63x</td><td>2</td><td class="num-bad">$344</td><td>2.19%</td><td class="num-good">12.3%</td><td><span class="verd watch">LP drop issue</span></td></tr>
+        <tr><td><div class="ad-name">Influencer @tcara - Aura try-on</div></td><td><span class="chip chip-aura">Aura</span></td><td>$275</td><td class="strike">0x</td><td>0</td><td class="num-mute">n/a</td><td class="num-mid">2.35%</td><td>6.3%</td><td><span class="verd watch">Re-brief hook</span></td></tr>
+        <tr><td><div class="ad-name">Aura Ads 1 - Features and Benefits</div></td><td><span class="chip chip-aura">Aura</span></td><td>$192</td><td class="num-bad">0.88x</td><td>1</td><td class="num-bad">$192</td><td class="num-mute">1.74%</td><td>5.9%</td><td><span class="verd watch">Angle too generic</span></td></tr>
+        <tr><td><div class="ad-name">Influencer @giselacindy12 - Aura gifting</div></td><td><span class="chip chip-aura">Aura</span></td><td>$159</td><td class="strike">0x</td><td>0</td><td class="num-mute">n/a</td><td class="num-bad">1.56%</td><td class="num-bad">0%</td><td><span class="verd pause">Pause</span></td></tr>
+        <tr><td><div class="ad-name">nicole.roggow-vid01 - Music Shield</div></td><td><span class="chip chip-ms">Music Shield</span></td><td>$119</td><td class="num-good">4.37x</td><td class="num-good">1</td><td class="num-good">$119</td><td>1.90%</td><td class="num-good">21.1%</td><td><span class="verd keep">Scale carefully</span></td></tr>
+        <tr><td><div class="ad-name">familyeyeoptometry - Music Shield</div></td><td><span class="chip chip-ms">Music Shield</span></td><td>$39</td><td class="strike">0x</td><td>0</td><td class="num-mute">n/a</td><td class="num-mute">1.41%</td><td class="num-bad">0%</td><td><span class="verd pause">Pause</span></td></tr>
+        <tr><td><div class="ad-name">Aura Set 4B Lester Video</div></td><td><span class="chip chip-aura">Aura</span></td><td>$40</td><td class="strike">0x</td><td>0</td><td class="num-mute">n/a</td><td class="num-bad">0.88%</td><td class="num-bad">0%</td><td><span class="verd pause">Pause</span></td></tr>
+        <tr><td><div class="ad-name">Aura Set 3B Static Kamae evergreen</div></td><td><span class="chip chip-aura">Aura</span></td><td>$38</td><td class="strike">0x</td><td>0</td><td class="num-mute">n/a</td><td class="num-bad">1.16%</td><td class="num-bad">0%</td><td><span class="verd pause">Pause</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="strip note mt16"><strong>Key read:</strong> Lester Music Shield at 12.3% LP to ATC and nicole.roggow at 21.1% are both being killed at checkout, not by the creative. Adding the 30-day guarantee and a price anchor directly into ad copy is the single highest-impact change for the next batch.</div>
+</section>
+<div class="divider"></div>
+<section id="angles">
+  <div class="eyebrow">Sections 02 and 03</div>
+  <div class="section-title">Creative angles</div>
+  <p class="sub mt8">Eight angles per product. Four strategic, four Reddit-sourced. Green border = white space. Orange border = Reddit-sourced. Switch between products using the tabs below.</p>
+  <div class="prod-switcher mt24">
+    <button class="prod-tab on" onclick="switchTab('ap','this')">Aura (8 angles)</button>
+    <button class="prod-tab" onclick="switchTab('mp','this')">Music Shield (8 angles)</button>
+  </div>
+
+  <div class="pane on" id="ap"><div class="angle-stack">
+
+  <div class="angle-card ws">
+    <div class="card-hdr"><div class="card-num">A1</div><div class="card-title">The only smart glasses people actually feel comfortable wearing in public right now</div><div class="card-tags"><span class="tag tag-p1">Priority 1</span><span class="tag tag-ws">White Space</span><span class="chip chip-aura">Aura</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">Why the window is open</div><div class="col-text">Ray-Ban Meta is under active legal investigation in the UK and US as of March 2026. Contractors reviewing intimate footage, university bans, theater bans. <strong>No competitor is running a no-camera angle.</strong> Aura has no camera. That product fact is now the most timely differentiator in the entire smart eyewear space. Brief and launch this week.</div><div class="aud-pills"><span class="tag tag-aud">Privacy-conscious 28 to 45</span><span class="tag tag-aud">Tech-skeptic buyers</span><span class="tag tag-aud">Urban early adopters</span></div></div>
+      <div><div class="col-lbl">Body copy options</div><div class="copies"><div class="copy"><div class="copy-lbl">Option A</div><div class="copy-text">"Smart glasses. No camera. No AI watching. No footage of strangers. Just four colors that change in 0.1 seconds. Chamelo Aura. $385. 30-day trial."</div></div><div class="copy"><div class="copy-lbl">Option B</div><div class="copy-text">"No camera. No privacy risk. Four color-changing lenses that actually work. Try it for 30 days, send it back if it's not for you."</div></div><div class="copy"><div class="copy-lbl">Option C</div><div class="copy-text">"You've seen the headlines. Chamelo Aura has no camera. TIME Best Invention 2024. 30-day money-back guarantee."</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"Smart glasses without the creep factor. No camera. No footage. Just four colors."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"Everyone is asking if their smart glasses are filming them. Ours can't."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"No camera. No mic. No AI. Just the most interesting sunglasses you'll own."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks (first 3 seconds)</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"Everyone's talking about smart glasses that film you. We built the opposite."</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"No camera. No footage. Just this." [taps frame, color changes]</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"My smart glasses don't record anything. Here's what they do instead."</div></div></div>
+    </div></div>
+    <div class="evidence"><div><div class="ev-lbl">Reddit signal confirmed</div><div class="ev-text">r/privacy and r/technology erupted around the Ray-Ban Meta footage scandal March 2026. <strong>Dominant thread sentiment: "I want smart glasses but not if they're filming strangers."</strong> This audience is warm and nobody is running ads at them. Aura is the answer and zero brands are saying it.</div></div></div>
+  </div>
+
+  <div class="angle-card ws">
+    <div class="card-hdr"><div class="card-num">A2</div><div class="card-title">The one people notice when you tap the frame in the middle of a conversation</div><div class="card-tags"><span class="tag tag-p1">Priority 1</span><span class="tag tag-ws">White Space</span><span class="chip chip-aura">Aura</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">The angle</div><div class="col-text">Not about features. Not about fashion. About the moment someone watches you tap the frame and the lens changes color in front of them. <strong>The reaction is the product.</strong> No camera glasses do this, no tint-adjustable glasses do this. This is Aura's exclusive territory. Targets the buyer who wants to be the most interesting person in the room without trying.</div><div class="aud-pills"><span class="tag tag-aud">Status-motivated buyers</span><span class="tag tag-aud">Social early adopters</span><span class="tag tag-aud">25 to 40 urban</span></div></div>
+      <div><div class="col-lbl">Body copy options</div><div class="copies"><div class="copy"><div class="copy-lbl">Option A</div><div class="copy-text">"She asked what I just did to my glasses. I tapped the frame and showed her. That conversation went on for twenty minutes. Chamelo Aura."</div></div><div class="copy"><div class="copy-lbl">Option B</div><div class="copy-text">"The question you'll get every single time: what are those and where do I get them? Chamelo Aura. Four colors. One tap. $385 and a 30-day guarantee."</div></div><div class="copy"><div class="copy-lbl">Option C</div><div class="copy-text">"Wore these to dinner. Left with three people asking me to send them the link. Chamelo Aura. Color-changing lenses. Nothing else like it."</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"The tap that stops every conversation."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"Four lens colors. One tap. Watch what happens next."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"The sunglasses people ask about before you say a word."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks (first 3 seconds)</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"Watch what happens when I tap the frame." [reaction-first, show face]</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"Every single time I wear these someone asks me the same question."</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"My glasses just changed color. Did you notice?" [street-style candid]</div></div></div>
+    </div></div>
+  </div>
+
+  <div class="angle-card p2">
+    <div class="card-hdr"><div class="card-num">A3</div><div class="card-title">For everyone who got sold on adaptive lenses and ended up disappointed</div><div class="card-tags"><span class="tag tag-p2">Priority 2</span><span class="tag tag-ws">White Space</span><span class="chip chip-aura">Aura</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">Why this audience converts</div><div class="col-text">150 million plus people wear photochromic or Transitions lenses. They already understand adaptive eyewear and are consistently let down by it. Too slow, goes pink, does not work inside cars. <strong>They already want what Chamelo does.</strong> They just do not know Chamelo exists. Zero competitors run this comparison directly.</div><div class="aud-pills"><span class="tag tag-aud">Transitions lens wearers</span><span class="tag tag-aud">Pre-educated buyers</span><span class="tag tag-aud">35 to 55</span></div></div>
+      <div><div class="col-lbl">Body copy options</div><div class="copies"><div class="copy"><div class="copy-lbl">Option A</div><div class="copy-text">"You have transition lenses. They're slow. They go pink. They stop working in your car. Chamelo Aura changes in 0.1 seconds with four color options and full manual control."</div></div><div class="copy"><div class="copy-lbl">Option B</div><div class="copy-text">"Transition lenses: 30 seconds to adjust. Chamelo: 0.1 seconds. Works in your car. Four color options. 30-day money-back."</div></div><div class="copy"><div class="copy-lbl">Option C</div><div class="copy-text">"If your lenses still do not work inside the car, you need to see this."</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"Transition lenses take 30 seconds. Ours take 0.1. And they come in four colors."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"If your lenses still don't work inside the car, you need to see this."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"1,800x faster than transition lenses. Four colors. Full manual control. $385."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks (first 3 seconds)</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"You're still waiting for your transition lenses to catch up." [side-by-side demo]</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"These changed in the time it took me to say this sentence."</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"Transition lenses vs Chamelo Aura inside a car. Watch the difference."</div></div></div>
+    </div></div>
+  </div>
+
+  <div class="angle-card fix">
+    <div class="card-hdr"><div class="card-num">A4</div><div class="card-title">The math on why this is actually the cheaper decision long term</div><div class="card-tags"><span class="tag tag-p2">Priority 2</span><span class="tag tag-fix">Conversion fix</span><span class="chip chip-aura">Aura</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">Why this needs to run</div><div class="col-text">Aura CPP is $577 on a $385 product. LP to ATC is 3.9% on the Founder Story, lowest in the account. The buyer is clicking and stalling at the price. <strong>No current Aura ad mentions $385 directly or explains why it holds up.</strong> Address price before the click so the buyer arrives already having reasoned through it. Confident, not apologetic.</div><div class="aud-pills"><span class="tag tag-aud">Price-sensitive considerers</span><span class="tag tag-aud">Warm traffic</span><span class="tag tag-aud">Cart abandoners</span></div></div>
+      <div><div class="col-lbl">Body copy options</div><div class="copies"><div class="copy"><div class="copy-lbl">Option A</div><div class="copy-text">"Four pairs of quality sunglasses cost $400 plus. Chamelo Aura is $385 and replaces all of them. TIME Best Invention 2024. 30-day money-back guarantee."</div></div><div class="copy"><div class="copy-lbl">Option B</div><div class="copy-text">"Try Aura for 30 days. If it is not the most interesting pair of sunglasses you have ever owned, send it back. $385 or nothing."</div></div><div class="copy"><div class="copy-lbl">Option C</div><div class="copy-text">"$385 sounds like a lot until you realize you are wearing one pair instead of four. That math works out fast. 30-day guarantee."</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"$385 sounds expensive until you do the math against four pairs."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"Try it for 30 days. If you don't love it, send it back."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"The last pair of sunglasses you'll need to buy. Here's why $385 makes sense."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks (first 3 seconds)</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"Yes, they're $385. Let me show you exactly why that's fair." [quick demo]</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"I was skeptical at $385. Then I realized I hadn't bought another pair of sunglasses since."</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"30-day free trial. If these aren't the best sunglasses you've owned, send them back."</div></div></div>
+    </div></div>
+  </div>
+
+  <div class="angle-card reddit">
+    <div class="card-hdr"><div class="card-num">AR1</div><div class="card-title">For people with light sensitivity and migraines who are tired of fixed tints</div><div class="card-tags"><span class="tag tag-reddit">Reddit-sourced</span><span class="tag tag-ws">White Space</span><span class="chip chip-aura">Aura</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">The community signal</div><div class="col-text">Over 80% of migraine sufferers experience photophobia. Existing solutions like TheraSpecs use fixed tints, they cannot adjust. Aura gives manual control over how much light comes through in real time. <strong>Nobody in the migraine or light sensitivity space is running ads for an adjustable-tint solution.</strong> Zero competitor coverage here.</div><div class="aud-pills"><span class="tag tag-aud">Migraine sufferers</span><span class="tag tag-aud">Photophobia community</span><span class="tag tag-aud">Light-sensitive buyers</span></div></div>
+      <div><div class="col-lbl">Body copy options</div><div class="copies"><div class="copy"><div class="copy-lbl">Option A</div><div class="copy-text">"Fixed tints are guesswork. Some days you need less, some days more. Chamelo Aura lets you adjust the moment the light bothers you. One tap. 30-day trial."</div></div><div class="copy"><div class="copy-lbl">Option B</div><div class="copy-text">"If bright light is the problem, having only one tint option isn't the solution. Chamelo Aura adjusts in 0.1 seconds. You control how much light gets through."</div></div><div class="copy"><div class="copy-lbl">Option C</div><div class="copy-text">"The first sunglasses that let you adjust the tint to exactly where you need it. Not darker or lighter. Exactly right. Chamelo Aura."</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"Fixed tints are a guess. Chamelo adjusts to exactly what your eyes need."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"One tap lighter. One tap darker. Finally, the tint you actually need right now."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"Light sensitivity changes through the day. Your sunglasses should too."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks (first 3 seconds)</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"If light bothers you and you only have one tint option, I need to show you this."</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"The problem with every migraine glasses recommendation: they're all fixed tints."</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"Indoor light too harsh? Tap. Outdoor sun too bright? Tap again. One pair."</div></div></div>
+    </div></div>
+    <div class="evidence"><div><div class="ev-lbl">Community source</div><div class="ev-text">Migraine forums, r/migraine, Association of Migraine Disorders. <strong>Over 80% of migraine sufferers have photophobia. Zero smart glasses brands are running ads at this audience.</strong> Existing solutions are fixed tint. Aura is the only adjustable option.</div></div></div>
+  </div>
+
+  <div class="angle-card reddit">
+    <div class="card-hdr"><div class="card-num">AR2</div><div class="card-title">Festival and concert buyers who pack multiple pairs and still get the vibe wrong</div><div class="card-tags"><span class="tag tag-reddit">Reddit-sourced</span><span class="tag tag-ws">White Space</span><span class="chip chip-aura">Aura</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">The community signal</div><div class="col-text">Festival fashion threads consistently show people either bringing multiple pairs or compromising on one. Day outdoor sets, sunset sessions, dark indoor stages all need different tints. <strong>No smart glasses brand runs festival-specific creative.</strong> Aura solves the whole problem in one pair. Strong seasonal angle April through August.</div><div class="aud-pills"><span class="tag tag-aud">Festival-goers 21 to 38</span><span class="tag tag-aud">Music culture</span><span class="tag tag-aud">Style-conscious buyers</span></div></div>
+      <div><div class="col-lbl">Body copy options</div><div class="copies"><div class="copy"><div class="copy-lbl">Option A</div><div class="copy-text">"Outdoor stage: crystal. Sunset set: ruby. Indoor room: clear. One pair gets you through the whole festival without carrying a backup. Chamelo Aura."</div></div><div class="copy"><div class="copy-lbl">Option B</div><div class="copy-text">"Stop packing three pairs of sunglasses for a festival weekend. One pair with four colors that change in one tap. Chamelo Aura. $385. 30-day guarantee."</div></div><div class="copy"><div class="copy-lbl">Option C</div><div class="copy-text">"The light changes every hour at a festival. Your sunglasses should keep up."</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"Outdoor stage at noon. Indoor room at midnight. One pair handles both."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"Stop packing backup sunglasses. Chamelo Aura changes with the vibe."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"Festival season starts now. Your sunglasses should be able to keep up."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks (first 3 seconds)</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"POV: it's 6pm at a festival and your sunglasses still look right." [tap through colors at golden hour]</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"One pair through an entire festival weekend. Here's how."</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"Noon to midnight, one pair, four colors." [day-to-night timelapse format]</div></div></div>
+    </div></div>
+  </div>
+
+  <div class="angle-card reddit">
+    <div class="card-hdr"><div class="card-num">AR3</div><div class="card-title">For pilots, drivers, and anyone where the light changes faster than a fixed lens can keep up</div><div class="card-tags"><span class="tag tag-reddit">Reddit-sourced</span><span class="tag tag-ws">White Space</span><span class="chip chip-aura">Aura</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">The community signal</div><div class="col-text">Core77 comments surfaced this use case unprompted on Chamelo's launch article: "These would be great for pilots. We spend an inordinate amount of time fussing with window shades on approaches." <strong>Zero brands target pilots with smart eyewear.</strong> High-income, precision-focused audience with a specific and recurring frustration. Also maps to drivers in tunnels and parking structures.</div><div class="aud-pills"><span class="tag tag-aud">Pilots and aviators</span><span class="tag tag-aud">Frequent drivers</span><span class="tag tag-aud">High-income precision buyers</span></div></div>
+      <div><div class="col-lbl">Body copy options</div><div class="copies"><div class="copy"><div class="copy-lbl">Option A - pilot</div><div class="copy-text">"Pilots deal with changing light on every approach. Chamelo Aura adjusts the tint in 0.1 seconds. Manual control, instant response. No fumbling."</div></div><div class="copy"><div class="copy-lbl">Option B - driver</div><div class="copy-text">"Into the tunnel: tap lighter. Out of the tunnel: tap darker. One motion, instant response, keeps your eyes on the road. Chamelo Aura."</div></div><div class="copy"><div class="copy-lbl">Option C</div><div class="copy-text">"The light changes constantly when you're behind the wheel. Your sunglasses should too. Chamelo Aura. Manual tint control. 0.1 seconds."</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"Pilots deal with changing light on every approach. This is what they need."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"Into the tunnel. Out of the tunnel. 0.1 seconds both times."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"The light changes faster than a fixed lens can keep up. Chamelo doesn't have that problem."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks (first 3 seconds)</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"Watch what happens when I drive into the parking structure." [POV driving demo]</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"I'm a pilot. I've been waiting for something like this for a long time."</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"The light just changed. My lenses already adjusted." [cockpit or driving POV]</div></div></div>
+    </div></div>
+    <div class="evidence"><div><div class="ev-lbl">Source - Core77 product comments July 2024</div><div class="ev-text"><strong>"These would be great for pilots. We spend an inordinate effort fussing with window shades on approaches. Just a simple push would be great."</strong> Unprompted use-case discovery from a high-income precision audience. Zero competitors targeting this group.</div></div></div>
+  </div>
+
+  <div class="angle-card reddit">
+    <div class="card-hdr"><div class="card-num">AR4</div><div class="card-title">For people tired of carrying both their regular glasses and their sunglasses everywhere</div><div class="card-tags"><span class="tag tag-reddit">Reddit-sourced</span><span class="tag tag-ws">White Space</span><span class="chip chip-aura">Aura</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">The community signal</div><div class="col-text">Recurring Reddit and review thread theme: glasses wearers with separate sunglasses keep leaving one at home, managing two cases, and are tired of the friction every time they leave the house. Aura Rx now exists and solves this directly with prescription lenses. <strong>The "stop carrying two pairs" angle is completely uncontested in current Aura creative.</strong></div><div class="aud-pills"><span class="tag tag-aud">Glasses wearers</span><span class="tag tag-aud">Prescription buyers</span><span class="tag tag-aud">Frequent travelers</span></div></div>
+      <div><div class="col-lbl">Body copy options</div><div class="copies"><div class="copy"><div class="copy-lbl">Option A</div><div class="copy-text">"Glasses inside. Sunglasses outside. Always forgetting one. Chamelo Aura starts at clear and goes to four colors with a tap. One pair covers the whole day."</div></div><div class="copy"><div class="copy-lbl">Option B - Aura Rx</div><div class="copy-text">"Prescription eyewear that also changes color. You don't have to choose between seeing clearly and looking right. Chamelo Aura Rx."</div></div><div class="copy"><div class="copy-lbl">Option C</div><div class="copy-text">"Indoor to outdoor. Clear to four colors. One pair, one tap, done."</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"Forgot your sunglasses again. This is the last time that will bother you."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"Indoor to outdoor. Clear to four colors. One pair, one tap, done."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"The first prescription sunglasses with color-changing lenses. Chamelo Aura Rx."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks (first 3 seconds)</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"I used to leave the house with two cases. Now I leave with one pair." [morning routine format]</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"Finally a pair of prescription glasses that also does this." [color tap reveal]</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"I forgot my sunglasses for the last time three months ago. Here's what changed."</div></div></div>
+    </div></div>
+  </div>
+
+  </div></div><!-- end aura pane -->
+  <div class="pane" id="mp"><div class="angle-stack">
+
+  <div class="angle-card ws">
+    <div class="card-hdr"><div class="card-num">M1</div><div class="card-title">The upgrade nobody is advertising yet. Music Shield Gen 2.</div><div class="card-tags"><span class="tag tag-p1">Priority 1</span><span class="tag tag-ws">White Space</span><span class="chip chip-ms">Music Shield Gen 2</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">Why Gen 2 needs its own creative now</div><div class="col-text">The LP is live but every dollar of spend points to the original Music Shield. <strong>"Gen 2" alone is a purchase trigger.</strong> Existing buyers need a reason to upgrade. New buyers need a reason to start with the best version. Brief Gen 2 separately. Different LP, different hook, different ad sets. Do not mix Gen 2 into existing Music Shield ad sets.</div><div class="aud-pills"><span class="tag tag-aud">Previous MS viewers</span><span class="tag tag-aud">Tech upgrade buyers</span><span class="tag tag-aud">New buyers 25 to 45</span></div></div>
+      <div><div class="col-lbl">Body copy options</div><div class="copies"><div class="copy"><div class="copy-lbl">Option A</div><div class="copy-text">"If you've been looking at Music Shield, this is the version to get. Gen 2: instant tint, open-ear audio, built for running, cycling, every commute. $260. 30-day trial."</div></div><div class="copy"><div class="copy-lbl">Option B</div><div class="copy-text">"Start with the best one. Music Shield Gen 2. Sport sunglasses that adjust their own tint and play your music without blocking your ears. $260."</div></div><div class="copy"><div class="copy-lbl">Option C retargeting</div><div class="copy-text">"You looked at Music Shield a while back. Gen 2 just dropped. Here is what changed."</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"Music Shield. Now Gen 2. Same tint control. Better everything."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"The one everyone was talking about just got an upgrade."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"Gen 2 is out. If you've been on the fence, this is the version to try."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks (first 3 seconds)</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"The Music Shield everyone talked about just got better. Here's what changed."</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"Gen 2 just dropped. If you're buying Music Shield, buy this one."</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"I had the original. Then Gen 2 arrived. I'm not going back."</div></div></div>
+    </div></div>
+  </div>
+
+  <div class="angle-card ws">
+    <div class="card-hdr"><div class="card-num">M2</div><div class="card-title">Driving into the sun at 7am just got one problem smaller</div><div class="card-tags"><span class="tag tag-p1">Priority 1</span><span class="tag tag-ws">White Space</span><span class="chip chip-ms">Music Shield</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">Why this is the biggest untested angle</div><div class="col-text">Every driver deals with morning glare, tunnels, and shifting sun angles. <strong>Chamelo buyers bring up driving unprompted on Trustpilot reviews.</strong> No smart glasses brand runs driving-specific creative. Mass audience: every driver 25 to 55, zero education needed. A 15-second video of someone tapping the frame while driving tells the whole story.</div><div class="aud-pills"><span class="tag tag-aud">Commuters 25 to 55</span><span class="tag tag-aud">Morning drivers</span><span class="tag tag-aud">Zero competitor coverage</span></div></div>
+      <div><div class="col-lbl">Body copy options</div><div class="copies"><div class="copy"><div class="copy-lbl">Option A</div><div class="copy-text">"Into the tunnel: tap lighter. Out of the tunnel: tap darker. 0.1 seconds every time. Chamelo Music Shield. Instant tint plus open-ear audio."</div></div><div class="copy"><div class="copy-lbl">Option B</div><div class="copy-text">"Photochromic lenses stop working inside cars. Chamelo's do not. Tap the frame. Tint changes. In traffic, a garage, or the open road."</div></div><div class="copy"><div class="copy-lbl">Option C</div><div class="copy-text">"Your commute has one less problem. Instant tint you control. Music Shield. $260."</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"The light changed. Your lenses already adjusted."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"One tap on the frame. The glare is gone. Works inside your car, unlike the other ones."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"Driving. Tunnel. Bright road. Your lenses adjusted before your eyes did."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks (first 3 seconds)</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"Driving into the sun at 7am just got one problem smaller." [frame tap, tint shifts]</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"Watch what happens when I drive out of this tunnel." [POV driving reveal]</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"My morning commute changed when I stopped squinting and started tapping."</div></div></div>
+    </div></div>
+    <div class="evidence"><div><div class="ev-lbl">Buyer signal confirmed unprompted</div><div class="ev-text">Trustpilot verified buyers mention driving without being asked: <strong>"Innovative and convenient while driving, when you need to change the tint."</strong> Unprompted buyer discovery of a use case is the strongest signal an angle will convert.</div></div></div>
+  </div>
+
+  <div class="angle-card ws">
+    <div class="card-hdr"><div class="card-num">M3</div><div class="card-title">I bought these thinking they would be a gimmick. That was three months ago.</div><div class="card-tags"><span class="tag tag-p1">Priority 1</span><span class="tag tag-ws">White Space</span><span class="chip chip-ms">Music Shield</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">Why this UGC arc converts</div><div class="col-text">CNN Underscored, Cybernews, GearJunkie, TikTok cycling creators, and Trustpilot buyers all independently land on the same language without coordinating it: "didn't expect," "surprised me," "I thought it was a gimmick." <strong>Four independent sources landing on identical language is one of the strongest creative signals you can find.</strong> The nicole.roggow creative at 21.1% LP to ATC proves this format works. Brief three creators with this same arc.</div><div class="aud-pills"><span class="tag tag-aud">Skeptical tech buyers</span><span class="tag tag-aud">Cyclists and runners</span><span class="tag tag-aud">UGC reel format</span></div></div>
+      <div><div class="col-lbl">3 creator variants to brief - give exact opening line</div><div class="copies"><div class="copy"><div class="copy-lbl">Variant 1 - Cyclist</div><div class="copy-text">"I was convinced these would end up in a drawer. Three months later I wear them on every single ride. The tint control changed how I cycle."</div></div><div class="copy"><div class="copy-lbl">Variant 2 - Commuter</div><div class="copy-text">"Bought these as a bit of a tech experiment. I wear them every day now and I genuinely can't explain why I waited so long."</div></div><div class="copy"><div class="copy-lbl">Variant 3 - Press</div><div class="copy-text">"I've reviewed a lot of smart glasses. These are the ones I actually kept using." [with CNN Underscored logo overlay]</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"I almost didn't buy these. Three months later they're the only sunglasses I reach for."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"Thought this was a gimmick. Turns out it is just a really good product."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"Voted TIME Best Invention 2024. I was skeptical too. Then I tried them."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks - give to creator verbatim as opening line</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"I bought these thinking they'd be a gimmick. That was three months ago."</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"My friends kept asking what I was wearing on my face. I didn't expect that."</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"Honest review from someone who was very skeptical going in." [talking head, no script]</div></div></div>
+    </div></div>
+    <div class="evidence"><div><div class="ev-lbl">Performance signal</div><div class="ev-text">The nicole.roggow creative has <strong>21.1% LP to ATC, the highest in the entire account</strong> and double the Brand Sizzle's 10.8%. The conversational UGC format is doing something different in the funnel. Three creator variants is the clearest next move.</div></div></div>
+  </div>
+
+  <div class="angle-card p2">
+    <div class="card-hdr"><div class="card-num">M4</div><div class="card-title">Hear your music. Hear what's coming. Open-ear audio as a safety argument.</div><div class="card-tags"><span class="tag tag-p2">Priority 2</span><span class="tag tag-ws">White Space</span><span class="chip chip-ms">Music Shield</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">Why nobody owns this angle</div><div class="col-text">Open-ear audio appears in every Ray-Ban Meta and Oakley Meta ad but <strong>none of them frame it as a safety argument.</strong> r/cycling and r/running actively debate whether earbuds are dangerous in traffic. Music Shield is the direct answer and nobody is advertising to these communities. Highly shareable. CNN reviewer logged 300 miles of city riding still wearing them daily.</div><div class="aud-pills"><span class="tag tag-aud">Cyclists</span><span class="tag tag-aud">Runners</span><span class="tag tag-aud">Urban commuters</span></div></div>
+      <div><div class="col-lbl">Body copy options</div><div class="copies"><div class="copy"><div class="copy-lbl">Option A</div><div class="copy-text">"Hear your playlist. Hear the car you didn't see coming. Open-ear audio built into sport sunglasses with instant tint control. Music Shield. $260."</div></div><div class="copy"><div class="copy-lbl">Option B</div><div class="copy-text">"Every cyclist knows the feeling. Earbuds in, can't hear the bike lane. Music Shield gives you the music without giving up awareness."</div></div><div class="copy"><div class="copy-lbl">Option C</div><div class="copy-text">"The reason open-ear audio matters for runners is simple. You need to hear what is around you. Music Shield does not block anything. $260."</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"AirPods on a busy road: you can't hear what's coming. Music Shield: you can hear everything."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"Music, tint control, and full awareness of everything around you. No earbuds required."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"The only cycling audio that also adjusts your lenses. Music Shield."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks (first 3 seconds)</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"Cycling with earbuds is fine until it isn't. This is what I use instead." [on-bike POV]</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"Open-ear audio means I can hear my music and hear the road. Took me a while to find this."</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"No earbuds. No blocked ears. Full music. And the tint adjusts itself." [cycling demo]</div></div></div>
+    </div></div>
+  </div>
+
+  <div class="angle-card reddit">
+    <div class="card-hdr"><div class="card-num">MR1</div><div class="card-title">For neurodivergent people who need music to focus but can't wear earbuds for hours</div><div class="card-tags"><span class="tag tag-reddit">Reddit-sourced</span><span class="tag tag-ws">White Space</span><span class="chip chip-ms">Music Shield</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">The community signal</div><div class="col-text">Confirmed in a real Ampere Dusk buyer review: "As a neurodivergent person with sensory processing issues, I benefit greatly from playing music while I work but struggle to wear headphones or earbuds for extended periods. The glasses changed this." <strong>ADHD, autism, and sensory processing communities are large and nobody is running open-ear glasses ads at them.</strong> Music Shield is an exact fit. Zero competitors use this angle.</div><div class="aud-pills"><span class="tag tag-aud">ADHD community</span><span class="tag tag-aud">Sensory processing</span><span class="tag tag-aud">Work-from-home buyers</span></div></div>
+      <div><div class="col-lbl">Body copy options</div><div class="copies"><div class="copy"><div class="copy-lbl">Option A</div><div class="copy-text">"I need music to focus but earbuds bother my ears after an hour. Music Shield is open-ear audio without anything touching your ears. I wear these all day."</div></div><div class="copy"><div class="copy-lbl">Option B</div><div class="copy-text">"Nothing in your ears. No pressure. No fatigue. Open-ear audio built into sunglasses you can wear for hours. Music Shield. $260."</div></div><div class="copy"><div class="copy-lbl">Option C</div><div class="copy-text">"If you need background audio to focus and hate the feeling of earbuds, this is the thing I wish I had found earlier. Music Shield."</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"Music without anything touching your ears. Open-ear audio for people who can't stand earbuds."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"I need music to focus. I can't wear earbuds for more than an hour. These fixed that."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"No pressure. No fatigue. Just your music and everything around you still audible."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks (first 3 seconds)</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"I have ADHD. I need music to focus. Earbuds bothered me after an hour. Then I found these."</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"Nothing in your ears. No pressure. No cord. Six hours of audio and I forgot I was wearing them." [work-from-home setup]</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"If sensory stuff makes earbuds hard, watch this." [calm, direct talking-head format]</div></div></div>
+    </div></div>
+    <div class="evidence"><div><div class="ev-lbl">Source - verified buyer review from ampere.shop</div><div class="ev-text"><strong>"As a neurodivergent person with sensory processing issues, I benefit greatly from playing music while I work but struggle to wear headphones or earbuds for extended periods. The comfort and lightweight design make them the easiest accessory to wear for music without overstimulating my sense of touch."</strong> Large audience, zero competitors advertising to them.</div></div></div>
+  </div>
+
+  <div class="angle-card reddit">
+    <div class="card-hdr"><div class="card-num">MR2</div><div class="card-title">For cafe and open office workers who want audio that doesn't look antisocial</div><div class="card-tags"><span class="tag tag-reddit">Reddit-sourced</span><span class="tag tag-ws">White Space</span><span class="chip chip-ms">Music Shield</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">The community signal</div><div class="col-text">Recurring Reddit theme in r/digitalnomad: earbuds make colleagues think you're unavailable, create social friction in co-working spaces, and cause ear fatigue. <strong>Music Shield solves the social dynamic and the physical comfort issue simultaneously.</strong> CNN Underscored reviewer confirmed this exactly: "I had full conversations with people while secretly listening to The Clash. Their most common response was: Holy s**t, I had no idea." Zero current creative touches this.</div><div class="aud-pills"><span class="tag tag-aud">Remote workers</span><span class="tag tag-aud">Cafe workers</span><span class="tag tag-aud">Co-working users</span></div></div>
+      <div><div class="col-lbl">Body copy options</div><div class="copies"><div class="copy"><div class="copy-lbl">Option A</div><div class="copy-text">"I had an entire conversation with someone at the cafe while quietly listening to a podcast. They had no idea. Music Shield open-ear audio. Nothing in your ears. Nobody knows."</div></div><div class="copy"><div class="copy-lbl">Option B</div><div class="copy-text">"Earbuds in a meeting: you look unavailable. Music Shield: you look like you're just wearing sunglasses. The audio is for you. Nobody else hears it."</div></div><div class="copy"><div class="copy-lbl">Option C</div><div class="copy-text">"Focus audio that doesn't signal do not disturb. Music Shield open-ear. People talk to you normally. You still hear your music."</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"Listening to music. Having a full conversation. Nobody knows both are happening."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"The audio is for you. Everyone else just sees sunglasses."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"Focus audio that doesn't tell the whole room you're not available."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks (first 3 seconds)</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"I had a 20-minute conversation with someone at this cafe. I was listening to a podcast the entire time. They didn't know." [cafe setting]</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"Open office. Podcast on. Nobody knows." [work desk format]</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"The person next to me had no idea I was listening to music this whole time." [social stealth format]</div></div></div>
+    </div></div>
+    <div class="evidence"><div><div class="ev-lbl">Source - CNN Underscored 3-month review</div><div class="ev-text"><strong>"I had full conversations with people while secretly listening to The Clash, Miles Davis, The Meters or a podcast. When I finally told them the most common response was: Holy sh*t I had no idea, I didn't hear a thing."</strong> The social stealth moment is unused as an ad angle.</div></div></div>
+  </div>
+
+  <div class="angle-card reddit">
+    <div class="card-hdr"><div class="card-num">MR3</div><div class="card-title">For snowboarders and skiers tired of swapping lenses every time the mountain light changes</div><div class="card-tags"><span class="tag tag-reddit">Reddit-sourced</span><span class="tag tag-ws">White Space</span><span class="chip chip-ms">Music Shield</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">The community signal</div><div class="col-text">Gizmodo and GearJunkie reviews both surface snow sports as an ideal use case. Wraparound frames plus adjustable tint handles constant light shifts on the mountain. <strong>Snow and ski communities complain about carrying multiple lens kits.</strong> Music Shield's sport frame and tint control lands directly here. No Music Shield-specific snow sport angle exists in current creative. Seasonal angle strong October through March.</div><div class="aud-pills"><span class="tag tag-aud">Snowboarders</span><span class="tag tag-aud">Skiers</span><span class="tag tag-aud">Mountain sports community</span></div></div>
+      <div><div class="col-lbl">Body copy options</div><div class="copies"><div class="copy"><div class="copy-lbl">Option A</div><div class="copy-text">"Trees: darker. Open run: lighter. Flat light: back again. One tap. No stopping. No swapping lenses. Music Shield handles every condition on the mountain."</div></div><div class="copy"><div class="copy-lbl">Option B</div><div class="copy-text">"Stop carrying a spare lens kit. Music Shield adjusts the tint when the mountain does. Sport frame, open-ear audio, instant tint. $260."</div></div><div class="copy"><div class="copy-lbl">Option C</div><div class="copy-text">"Mountain light changes every five minutes. Your lenses should too. Music Shield."</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"Stop swapping lenses every time the cloud moves. One tap changes the tint."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"Trees to open run. One tap. No stopping. Music Shield."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"Mountain light is unpredictable. Your lenses don't have to be."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks (first 3 seconds)</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"Watch what happens to the tint when I come out of the trees." [on-mountain POV]</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"I left my spare lens kit at home. This is why." [snowboard run with tap adjustment]</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"Flat light to bright sun on the same run. One tap each time." [mountain riding format]</div></div></div>
+    </div></div>
+  </div>
+
+  <div class="angle-card reddit">
+    <div class="card-hdr"><div class="card-num">MR4</div><div class="card-title">The conversation that happens when people realize they couldn't hear what you were listening to</div><div class="card-tags"><span class="tag tag-reddit">Reddit-sourced</span><span class="tag tag-ws">White Space</span><span class="chip chip-ms">Music Shield</span></div></div>
+    <div class="card-body">
+      <div><div class="col-lbl">The community signal</div><div class="col-text">CNN Underscored exact quote: "I had full conversations with people while secretly listening to The Clash. When I finally told them, the most common response was Holy s**t I had no idea, I didn't hear a thing." <strong>This social reveal moment is completely unused in Music Shield advertising.</strong> The product does something most people find genuinely surprising. The surprise reaction is the ad. Format: real-life social reveal, friend's reaction is the payoff.</div><div class="aud-pills"><span class="tag tag-aud">Social buyers</span><span class="tag tag-aud">Gift buyers</span><span class="tag tag-aud">Tech enthusiasts</span></div></div>
+      <div><div class="col-lbl">Body copy options</div><div class="copies"><div class="copy"><div class="copy-lbl">Option A</div><div class="copy-text">"We talked for twenty minutes. Then I told her I was listening to music the whole time. Her exact words: How did I not notice that? Music Shield. Open-ear audio."</div></div><div class="copy"><div class="copy-lbl">Option B</div><div class="copy-text">"The speakers are hidden in the frames. The sound goes directly to your ears. Nobody around you hears it. Watch what happens when they find out."</div></div><div class="copy"><div class="copy-lbl">Option C</div><div class="copy-text">"The most common reaction when people find out: I had no idea. Music Shield. Hidden open-ear speakers. $260."</div></div></div></div>
+    </div>
+    <div class="hooks-section"><div class="hooks-grid">
+      <div><div class="hooks-lbl static">Static hooks</div><div class="hook-item s"><div class="hook-n s">S01</div><div class="hook-t s">"She had no idea I was listening to anything. That's the point."</div></div><div class="hook-item s"><div class="hook-n s">S02</div><div class="hook-t s">"Hidden speakers. Private audio. Nobody around you hears a thing."</div></div><div class="hook-item s"><div class="hook-n s">S03</div><div class="hook-t s">"Show someone. Watch their face when they realize what just happened."</div></div></div>
+      <div><div class="hooks-lbl video">Video hooks (first 3 seconds)</div><div class="hook-item v"><div class="hook-n v">V01</div><div class="hook-t v">"Tell someone you've been listening to music this whole conversation. Film their reaction." [social reveal format]</div></div><div class="hook-item v"><div class="hook-n v">V02</div><div class="hook-t v">"I was playing music the whole time we were talking. You had no idea." [to camera, then friend reveal]</div></div><div class="hook-item v"><div class="hook-n v">V03</div><div class="hook-t v">"Most common reaction when I show people what these do." [reaction compilation format]</div></div></div>
+    </div></div>
+    <div class="evidence"><div><div class="ev-lbl">Source - CNN Underscored 3-month review, 300 miles of NYC cycling</div><div class="ev-text"><strong>"I had full conversations with people while secretly listening to The Clash, Miles Davis, The Meters or a podcast. When I finally told them and demoed the glasses, the most common response was Holy sh*t I had no idea, I didn't hear a thing."</strong> This is a live creative brief. Use the reaction format.</div></div></div>
+  </div>
+
+  </div></div><!-- end ms pane -->
+</section>
+<div class="divider"></div>
+<section id="redarea">
+  <div class="eyebrow">Section 04</div>
+  <div class="section-title">Red area</div>
+  <p class="sub mt8">Each card shows what competitors are running on this angle, why it is crowded, and exactly how to differentiate. Plus an AI recreation brief for the creator formats.</p>
+  <div class="ra-stack">
+
+    <div class="ra">
+      <div class="ra-hdr"><span class="tag tag-urgent">Red Area</span><div class="ra-title">Lifestyle try-on with color reveal — @tcara format</div><span class="chip chip-aura">Aura</span></div>
+      <div class="ra-body">
+        <div><div class="ra-col-lbl">What the video does</div><div class="ra-text">Upbeat lifestyle try-on. Fashion-first tone. Shows the color reveal as a discovery moment: put on the glasses, tap, react to the color change. Strong CTR at 2.35% tells us the hook is working. Zero purchases in $275 spend tells us the LP is losing them at price. The format has real potential. The angle needs sharpening.</div></div>
+        <div><div class="ra-col-lbl">What competitors are running</div><div class="ra-text">Ray-Ban Meta runs lifestyle try-on at scale with celebrity talent. Oakley Meta runs athlete lifestyle. Both lean heavily into the "wearing tech that looks good" format. The angle is crowded. <strong>The differentiator Aura has that neither of them do: the color actually changes.</strong> The reveal moment is the exclusive. No current competitor can run this ad.</div></div>
+        <div><div class="ra-col-lbl">AI recreation brief</div><div class="ai-brief"><strong>Brief to creative engine:</strong> Studio lifestyle reel, female model, natural window light, minimal setting. Wearing Aura normally, taps frame mid-scene, color shifts from crystal to ruby. Hold on the color change for 1.5 seconds. Reaction is natural, not performed. No voiceover. On-screen text: "Four colors. One tap." End frame with price and 30-day trial. 15 seconds.</div></div>
+      </div>
+    </div>
+
+    <div class="ra">
+      <div class="ra-hdr"><span class="tag tag-urgent">Red Area</span><div class="ra-title">Gifting and unboxing format — @giselacindy12 format</div><span class="chip chip-aura">Aura</span></div>
+      <div class="ra-body">
+        <div><div class="ra-col-lbl">What the video does</div><div class="ra-text">Gift unboxing with emotional reaction focus. Opens the Chamelo packaging, reveals the glasses, puts them on. 0% LP to ATC in $159 spend means the buyer is not even being moved to consider a purchase. The gifting frame is not wrong. The execution never gets to the product's actual differentiator before the viewer moves on.</div></div>
+        <div><div class="ra-col-lbl">What competitors are running</div><div class="ra-text">Gifting creative runs widely across all fashion tech categories. Every smart glasses brand uses "great gift" framing seasonally. The angle is not wrong, the execution is. <strong>The color change needs to be the payoff moment of the unboxing, not an afterthought.</strong> The reaction when the lens changes for the first time is the hook. Current execution never gets there.</div></div>
+        <div><div class="ra-col-lbl">AI recreation brief</div><div class="ai-brief"><strong>Brief to creative engine:</strong> Clean aesthetic unboxing to first-wear reel. Opens box, holds glasses, taps frame. This is the payoff moment, hold for 2 seconds on the lens change. Show face of person reacting to the color shift for the first time. End with product name and 30-day guarantee. Text overlay: "The tap they'll talk about." 12 to 18 seconds.</div></div>
+      </div>
+    </div>
+
+    <div class="ra">
+      <div class="ra-hdr"><span class="tag tag-urgent">Red Area</span><div class="ra-title">Product features and benefits static format</div><span class="chip chip-aura">Aura</span></div>
+      <div class="ra-body">
+        <div><div class="ra-col-lbl">What is happening</div><div class="ra-text">Features and Benefits static: $192, one purchase at $192 CPP, 1.74% CTR. Kamae evergreen static: $38, zero purchases, 1.16% CTR. Feature spec lists do not stop the scroll for a $385 fashion tech product. The buyer needs to feel the product before they will engage with its specs.</div></div>
+        <div><div class="ra-col-lbl">What competitors are running</div><div class="ra-text">No eyewear brand wins on feature grids. Ray-Ban, Oakley, and Coop all shifted from feature-heavy statics to lifestyle and identity-first creative. <strong>The category wins on how the product makes you look and feel, not what it technically does.</strong> Feature lists are not a differentiator in any DTC eyewear category.</div></div>
+        <div><div class="ra-col-lbl">How to differentiate if you must run static</div><div class="ra-text">Pause both current versions. Replace with a single-idea static: one frame showing the lens mid-color-change, one punchy line, price and guarantee. No bullet points, no spec list.<div class="ra-diff"><strong>Differentiator:</strong> Lead with the color-change visual, not specs. The product is visually interesting enough to carry the ad on its own. Let the image do the work.</div></div></div>
+      </div>
+    </div>
+
+    <div class="ra">
+      <div class="ra-hdr"><span class="tag tag-urgent">Red Area</span><div class="ra-title">Optometry and clinical endorsement as the hook</div><span class="chip chip-ms">Music Shield</span></div>
+      <div class="ra-body">
+        <div><div class="ra-col-lbl">What is happening</div><div class="ra-text">familyeyeoptometry Music Shield: $39 spend, zero purchases, 1.41% CTR, 0% LP to ATC. Clinical framing creates a medical impression that does not match the energy of a $260 sport tech product. Buyers arriving from this ad may be expecting prescription or corrective eyewear.</div></div>
+        <div><div class="ra-col-lbl">What competitors are running</div><div class="ra-text">Vionic and Kuru use podiatrist credentialing effectively, but those are medical footwear products. Smart eyewear clinical endorsements belong to prescription brands like EssilorLuxottica and Warby Parker Rx. <strong>Music Shield is a sport and lifestyle product. Clinical framing is mismatched to the audience and the buying context.</strong></div></div>
+        <div><div class="ra-col-lbl">How to differentiate if you want optometry credibility</div><div class="ra-text">The clinical endorsement works as a mid-ad trust signal, not the opening hook. Lead with a sport or lifestyle angle, then bring in the optometry credibility as secondary proof in body copy.<div class="ra-diff"><strong>Differentiator:</strong> "Vision care professionals recommend tint control over fixed lenses for changing light." Frame it as a functional credibility layer on top of an existing sport angle, not the lead.</div></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<div class="divider"></div>
+<section id="batch">
+  <div class="eyebrow">Section 05</div>
+  <div class="section-title">Next batch plan</div>
+  <p class="sub mt8">100 to 120 total assets. Aura 50 to 60. Music Shield 50 to 60. Produced by our creative engine. Green dot = Priority 1. Blue dot = Priority 2. Orange dot = Reddit-sourced.</p>
+  <div class="strip ok mt16"><strong>Two rules every ad in this batch must follow:</strong> The 30-day money-back guarantee appears in ad copy body, not only on the LP. Every ad anchors the price with context that justifies it before the click.</div>
+  <div class="batch-grid">
+    <div class="batch">
+      <div class="batch-hdr"><div class="batch-prod aura">Aura</div><div class="batch-title">50 to 60 assets</div><div class="batch-sub">LP: get.chamelo.com/aura - Mix of static and video</div></div>
+      <div>
+        <div class="arow"><div class="adot g"></div><div class="aname">A1 - The only glasses people feel comfortable wearing</div><div class="asource">Strategic</div><div class="acount">12 to 15</div></div>
+        <div class="arow"><div class="adot g"></div><div class="aname">A2 - The tap that stops conversations</div><div class="asource">Strategic</div><div class="acount">10 to 12</div></div>
+        <div class="arow"><div class="adot b"></div><div class="aname">A3 - For people disappointed by adaptive lenses</div><div class="asource">Strategic</div><div class="acount">8 to 10</div></div>
+        <div class="arow"><div class="adot b"></div><div class="aname">A4 - The long-term cost math</div><div class="asource">Strategic</div><div class="acount">6 to 8</div></div>
+        <div class="arow"><div class="adot o"></div><div class="aname">AR1 - Light sensitivity and migraine buyers</div><div class="asource">Reddit</div><div class="acount">6 to 8</div></div>
+        <div class="arow"><div class="adot o"></div><div class="aname">AR2 - Festival and concert buyers</div><div class="asource">Reddit</div><div class="acount">4 to 6</div></div>
+        <div class="arow"><div class="adot o"></div><div class="aname">AR3 - Pilots and precision-light buyers</div><div class="asource">Reddit</div><div class="acount">3 to 4</div></div>
+        <div class="arow"><div class="adot o"></div><div class="aname">AR4 - Stop carrying two pairs</div><div class="asource">Reddit</div><div class="acount">3 to 4</div></div>
+      </div>
+    </div>
+    <div class="batch">
+      <div class="batch-hdr"><div class="batch-prod ms">Music Shield</div><div class="batch-title">50 to 60 assets</div><div class="batch-sub">Gen 2 gets its own LP and its own ad sets. Do not mix.</div></div>
+      <div>
+        <div class="arow"><div class="adot g"></div><div class="aname">M1 - Gen 2 launch angle</div><div class="asource">Strategic</div><div class="acount">12 to 15</div></div>
+        <div class="arow"><div class="adot g"></div><div class="aname">M2 - Driving tint control (15-second video)</div><div class="asource">Strategic</div><div class="acount">10 to 12</div></div>
+        <div class="arow"><div class="adot g"></div><div class="aname">M3 - Didn't expect to like these - UGC x3 creators</div><div class="asource">Strategic</div><div class="acount">8 to 10</div></div>
+        <div class="arow"><div class="adot b"></div><div class="aname">M4 - Cycling safety open-ear awareness</div><div class="asource">Strategic</div><div class="acount">6 to 8</div></div>
+        <div class="arow"><div class="adot o"></div><div class="aname">MR1 - Neurodivergent and sensory-sensitive buyers</div><div class="asource">Reddit</div><div class="acount">4 to 6</div></div>
+        <div class="arow"><div class="adot o"></div><div class="aname">MR2 - Cafe and open office workers</div><div class="asource">Reddit</div><div class="acount">4 to 5</div></div>
+        <div class="arow"><div class="adot o"></div><div class="aname">MR3 - Snowboarders and skiers</div><div class="asource">Reddit</div><div class="acount">3 to 4</div></div>
+        <div class="arow"><div class="adot o"></div><div class="aname">MR4 - The social reveal moment</div><div class="asource">Reddit</div><div class="acount">3 to 4</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="strip note mt16"><strong>On MARW3 creative engine batch:</strong> Six days of data, $77 spend. Do not cut before 7 to 10 days and at least $150 per ad set. Signal readable around April 12 to 14.</div>
+</section>
+<div class="divider"></div>
+<section id="tldr">
+  <div class="tldr">
+    <div class="tldr-pill">TL;DR</div>
+    <div class="tldr-title">Chamelo - Next Step Strategy - April 2026</div>
+    <div class="tldr-grid">
+      <div>
+        <div class="tc-title">Pause these now</div>
+        <ul class="tc-list">
+          <li><span class="arr">-</span>Founder Story from cold traffic. Move to retargeting. 3.9% LP to ATC is too low for $2K cold spend</li>
+          <li><span class="arr">-</span>@giselacindy12 gifting creative. 0% LP to ATC. Re-brief as AI unboxing reveal format</li>
+          <li><span class="arr">-</span>Aura Kamae static and Features and Benefits. Neither converts. Weak CTR across both</li>
+          <li><span class="arr">-</span>familyeyeoptometry Music Shield. Clinical frame mismatched to sport product</li>
+          <li><span class="arr">-</span>Aura Set 4B Lester video. 0.88% CTR, lowest in the account</li>
+        </ul>
+      </div>
+      <div>
+        <div class="tc-title">Keep and build</div>
+        <ul class="tc-list">
+          <li><span class="arr">-</span><strong>Brand Sizzle Music Shield.</strong> Account top earner. 10.8% LP to ATC. Keep running</li>
+          <li><span class="arr">-</span><strong>nicole.roggow Music Shield.</strong> 21.1% LP to ATC, highest in the account. Brief 3 creator variants in the same arc</li>
+          <li><span class="arr">-</span>Lester Music Shield. 12.3% LP to ATC is real signal. Test with guarantee copy in ad body</li>
+          <li><span class="arr">-</span>@tcara Aura. 2.35% CTR is solid. Re-brief as AI studio lifestyle reel with color tap as payoff</li>
+          <li><span class="arr">-</span>MARW3 creative engine batch. Do not touch before April 12 to 14</li>
+        </ul>
+      </div>
+      <div>
+        <div class="tc-title">Priority brief order</div>
+        <ul class="tc-list">
+          <li><span class="arr">-</span><strong>P1 - Aura A1:</strong> No camera angle. 12 to 15 assets. Launch this week</li>
+          <li><span class="arr">-</span><strong>P1 - Music Shield M1:</strong> Gen 2 launch. 12 to 15 assets. Zero dedicated Gen 2 creative exists</li>
+          <li><span class="arr">-</span><strong>P1 - Music Shield M2:</strong> Driving tint 15-second video. 10 to 12 assets. Mass audience</li>
+          <li><span class="arr">-</span><strong>P1 - Aura A2:</strong> The tap that stops conversations. 10 to 12 assets. Uncontested</li>
+          <li><span class="arr">-</span><strong>Reddit - MR1:</strong> Neurodivergent buyers. 4 to 6 assets. Nobody running this anywhere</li>
+          <li><span class="arr">-</span><strong>Every ad:</strong> 30-day guarantee and price anchor in copy body, not only on LP</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="footer"><div class="footer-txt">Skyvane - Chamelo Next Step Strategy - April 2026</div><div class="footer-txt">Confidential</div></div>
+</div>
+<script>
+function switchTab(id, btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.prod-tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  event.target.classList.add('on');
+}
+const secs=document.querySelectorAll('section[id]');
+const links=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id});
+  links.forEach(a=>{a.classList.toggle('act',a.getAttribute('href')==='#'+cur)});
+});
+</script>
+</body></html>
